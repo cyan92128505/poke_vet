@@ -1,0 +1,31 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+type SensorReading struct {
+	Name     *string           `json:"name"`
+	Capacity int               `json:"capacity"`
+	Time     bool              `json:"time"`
+	Mapping  map[string]string `json:"mapping"`
+}
+
+type Config struct {
+	Name  string `json:"name"`
+	Value string `json:"value"`
+}
+
+func main() {
+	jsonString := `{"name": "123", "capacity": null, "time": null, "mapping": { "name": "123", "value":"123" }}`
+
+	var reading SensorReading
+	err := json.Unmarshal([]byte(jsonString), &reading)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", reading)
+	
+	fmt.Printf("%+v\n", *reading.Name)
+}
